@@ -28,12 +28,21 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
+      <h1>Inventory Listing</h1>
       {cars &&
         cars.map((car) => (
-          <p key={car.id}>
-            {car.year} {car.model} {car.make}
-          </p>
+          <div key={car.id}>
+            <br />
+            <h2>
+              {car.id}
+              <br />
+              {car.make}
+              <br />
+              <img src={car.url} alt={car.image} width={"450"} height={"450px"} overFlow="hidden" />
+              <br />
+            </h2>
+
+          </div>
         ))}
     </div>
   );
