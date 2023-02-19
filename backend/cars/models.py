@@ -4,10 +4,12 @@ from authentication.models import User
 # Create your models here.
 
 # <<<<<<<<<<<<<<<<< EXAMPLE FOR STARTER CODE USE <<<<<<<<<<<<<<<<<
-
+def upload_to(instance, filename):
+    return f'car_photo/{instance.user.username}/{filename}'
 
 class Car(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     make = models.CharField(max_length=30)
-    model = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    url = models.URLField(blank=True, null=True, default=None)
     year = models.IntegerField()

@@ -6,4 +6,6 @@ from cars import views
 urlpatterns = [
     path('', views.user_cars),
     path('all/', views.get_all_cars),
+    path('display/', views.index),
+    path('upload_image/', views.uploadView, name= 'upload_image')
 ]

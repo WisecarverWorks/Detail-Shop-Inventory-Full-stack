@@ -4,10 +4,30 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from .models import Car
 from .serializers import CarSerializer
-
+from django.shortcuts import render, redirect
+from .forms import ImageUploadForm
 # <<<<<<<<<<<<<<<<< EXAMPLE FOR STARTER CODE USE <<<<<<<<<<<<<<<<<
+## This is the view for the Django side
+def index(request):
+    data = Car.objects.all()
+    context = {
+        'data': data
+    }
+    return render(request, 'display.html', context)
+
+def uploadView(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload.html', {'form': form})
 
 
+
+# These views are for the React Side
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_cars(request):
